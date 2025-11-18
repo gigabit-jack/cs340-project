@@ -1,6 +1,8 @@
--- Group 71 Step 3 DML SQL
+-- Group 71 Step 4 DML SQL
 -- Online Bookstore Management System
 -- Daniel Aguilar and Josh Goben
+-- Queries used by the web application UI (Authors, Books, Customers,
+-- Orders/OrderItems, and dashboard reports).
 
 /* ----------------------------------------------------------------------
    AUTHORS PAGE QUERIES
@@ -15,7 +17,6 @@ SELECT authorID,
 FROM Authors
 ORDER BY lName, fName;
 
-
 -- A2: Insert a new author (values will be supplied by the web form)
 -- @fNameInput, @lNameInput, @countryInput, @birthYearInput are variables
 INSERT INTO Authors (fName, lName, country, birthyear)
@@ -24,16 +25,14 @@ VALUES (@fNameInput,
         @countryInput,
         @birthYearInput);
 
-
 -- A3: Update an existing author
 -- @authorIDInput identifies which author to update
 UPDATE Authors
-SET fName   = @fNameInput,
-    lName   = @lNameInput,
-    country = @countryInput,
+SET fName    = @fNameInput,
+    lName    = @lNameInput,
+    country  = @countryInput,
     birthyear = @birthYearInput
 WHERE authorID = @authorIDInput;
-
 
 -- A4: Delete an author by ID
 -- In later steps we may add ON DELETE actions or checks before this runs
@@ -59,7 +58,6 @@ FROM Books AS B
 JOIN Authors AS A ON B.authorID = A.authorID
 ORDER BY B.title;
 
-
 -- B2: Insert a new book
 -- @authorIDDropdown will come from a dropdown listing Authors
 INSERT INTO Books (title, authorID, genre, price, stockQuantity, publishYear, isbn)
@@ -71,13 +69,11 @@ VALUES (@titleInput,
         @publishYearInput,
         @isbnInput);
 
-
 -- B3: Update a book's price and stock quantity
 UPDATE Books
 SET price         = @priceInput,
     stockQuantity = @stockQuantityInput
 WHERE bookID = @bookIDInput;
-
 
 -- B4: Delete a book by ID
 -- In a later step we may add logic so that Orders / OrderItems stay consistent
@@ -101,7 +97,6 @@ SELECT customerID,
 FROM Customers
 ORDER BY lName, fName;
 
-
 -- C2: Search customers by last name or email
 -- Either last-name search or email search can be used
 SELECT customerID,
@@ -116,7 +111,6 @@ WHERE lName LIKE CONCAT('%', @lastNameSearch, '%')
    OR email = @emailSearch
 ORDER BY lName, fName;
 
-
 -- C3: Insert a new customer
 INSERT INTO Customers (fName, lName, email, phoneNumber, city, state)
 VALUES (@fNameInput,
@@ -125,7 +119,6 @@ VALUES (@fNameInput,
         @phoneNumberInput,
         @cityInput,
         @stateInput);
-
 
 -- C4: Update an existing customer
 UPDATE Customers
@@ -136,7 +129,6 @@ SET fName       = @fNameInput,
     city        = @cityInput,
     state       = @stateInput
 WHERE customerID = @customerIDInput;
-
 
 -- C5: Delete a customer
 DELETE FROM Customers
@@ -159,7 +151,6 @@ FROM Orders AS O
 JOIN Customers AS C ON O.customerID = C.customerID
 ORDER BY O.orderDate DESC, O.orderID DESC;
 
-
 -- O2: View a single order and its line items
 SELECT O.orderID,
        O.orderDate,
@@ -177,7 +168,6 @@ JOIN Books AS B ON OI.bookID = B.bookID
 WHERE O.orderID = @orderIDInput
 ORDER BY B.title;
 
-
 -- O3: Insert a new order header
 -- The backend will compute @totalAmountInput and pass it here
 INSERT INTO Orders (customerID, orderDate, totalAmount, paymentStatus)
@@ -186,7 +176,6 @@ VALUES (@customerIDDropdown,
         @totalAmountInput,
         @paymentStatusInput);
 
-
 -- O4: Insert a new order line (M:N insert between Orders and Books)
 INSERT INTO OrderItems (orderID, bookID, quantity, subtotal)
 VALUES (@orderIDInput,
@@ -194,12 +183,10 @@ VALUES (@orderIDInput,
         @quantityInput,
         @subtotalInput);
 
-
 -- O5: Update an order's payment status
 UPDATE Orders
 SET paymentStatus = @paymentStatusInput
 WHERE orderID = @orderIDInput;
-
 
 -- O6: Update an order item's quantity and subtotal
 UPDATE OrderItems
@@ -207,11 +194,9 @@ SET quantity = @quantityInput,
     subtotal = @subtotalInput
 WHERE orderItemID = @orderItemIDInput;
 
-
 -- O7: Delete a single order item
 DELETE FROM OrderItems
 WHERE orderItemID = @orderItemIDInput;
-
 
 -- O8: Delete an order and all of its line items
 -- This two-step pattern avoids orphaned OrderItems rows when foreign
@@ -235,7 +220,6 @@ SELECT B.bookID,
 FROM Books AS B
 WHERE B.stockQuantity < 10
 ORDER BY B.stockQuantity ASC, B.title;
-
 
 -- R2: Top-selling books by total quantity ordered
 SELECT B.bookID,
