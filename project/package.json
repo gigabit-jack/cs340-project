@@ -4,11 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "development": "npx nodemon app.js",
+    "production": "npx forever start app.js",
+    "stop_production": "npx forever stop app.js"
   },
   "author": "Daniel Aguilar and Josh Goben",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "express-handlebars": "^8.0.3",
     "forever": "^4.0.3",

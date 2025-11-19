@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/24e1410c-2208-4b3a-8674-cf3cc2b483a5/resourceGroups/appsvc_linux_newzealandnorth/providers/Microsoft.Web/sites/cs340-g17",
+    "appService.deploySubpath": "project"
+}
