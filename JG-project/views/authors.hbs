@@ -1,4 +1,4 @@
-<h1>Admin Home - Online Bookstore Admin</h1>
+<h1>BSG People</h1>
 
 {{! READ table }}
 <table>
@@ -19,10 +19,10 @@
         {{#each people}}
         <tr>
             <td>{{this.id}}</td>
-            <td>{{this.fname}}</td>
-            <td>{{this.lname}}</td>
-            <td>{{this.homeworld}}</td>
-            <td>{{this.age}}</td>
+            <td>{{this.fName}}</td>
+            <td>{{this.lName}}</td>
+            <td>{{this.country}}</td>
+            <td>{{this.birthyear}}</td>
 
             {{! DELETE form }}
             <form id='delete_person_form'>
