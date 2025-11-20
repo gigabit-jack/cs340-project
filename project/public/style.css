@@ -76,7 +76,7 @@ tfoot {
 
 table tr:hover td,
 tbody tr:nth-child(even):hover td {
-    background-color: var(--background-muted);
+    background-color: var(--background-secondary);
 }
 
 h1, h2 { 
