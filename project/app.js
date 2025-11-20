@@ -37,7 +37,7 @@ app.get('/', async function (req, res) {
 app.get('/authors', async function (req, res) {
     try {
         // Create and execute our queries
-        // In query1, we use a JOIN clause to display the names of the homeworlds
+        // In query1, we simply gather and display all authors
         const query1 = `SELECT Authors.authorID AS id, Authors.fName, Authors.lName, \
         Authors.country, Authors.birthyear FROM Authors;`
         const [people] = await db.query(query1);
@@ -57,17 +57,18 @@ app.get('/authors', async function (req, res) {
 app.get('/books', async function (req, res) {
     try {
         // Create and execute our queries
-        // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT bsg_people.id, bsg_people.fname, bsg_people.lname, \
-            bsg_planets.name AS 'homeworld', bsg_people.age FROM bsg_people \
-            LEFT JOIN bsg_planets ON bsg_people.homeworld = bsg_planets.id;`;
-        const query2 = 'SELECT * FROM bsg_planets;';
-        const [people] = await db.query(query1);
-        const [homeworlds] = await db.query(query2);
+        // In query1, we use a JOIN clause to display the names of the books and their authors
+        const query1 = `SELECT Books.bookID AS id, Books.title, \
+        CONCAT(Authors.fName, ' ', Authors.lName) AS authorName, Books.genre, Books.price, \
+        Books.stockQuantity, Books.publishYear, Books.isbn \
+        FROM Books \
+        LEFT JOIN Authors ON Books.authorID = Authors.authorID
+        ORDER BY Books.title;`;
+        const [books] = await db.query(query1);
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('books', { people: people, homeworlds: homeworlds });
+        res.render('books', { books: books });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -81,16 +82,15 @@ app.get('/customers', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT bsg_people.id, bsg_people.fname, bsg_people.lname, \
-            bsg_planets.name AS 'homeworld', bsg_people.age FROM bsg_people \
-            LEFT JOIN bsg_planets ON bsg_people.homeworld = bsg_planets.id;`;
-        const query2 = 'SELECT * FROM bsg_planets;';
-        const [people] = await db.query(query1);
-        const [homeworlds] = await db.query(query2);
+        const query1 = `SELECT Customers.customerID AS id, Customers.fName, Customers.lName, \
+        Customers.email, Customers.phoneNumber, Customers.city, Customers.state \
+        FROM Customers;`;
+
+        const [customers] = await db.query(query1);
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('customers', { people: people, homeworlds: homeworlds });
+        res.render('customers', { customers: customers });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -104,16 +104,22 @@ app.get('/order_items', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT bsg_people.id, bsg_people.fname, bsg_people.lname, \
-            bsg_planets.name AS 'homeworld', bsg_people.age FROM bsg_people \
-            LEFT JOIN bsg_planets ON bsg_people.homeworld = bsg_planets.id;`;
-        const query2 = 'SELECT * FROM bsg_planets;';
-        const [people] = await db.query(query1);
-        const [homeworlds] = await db.query(query2);
+        const query1 = `SELECT Orders.orderID, \
+        CONCAT(Customers.fName, ' ', Customers.lName) AS customerName, \
+        Orders.orderDate, Orders.totalAmount, Orders.paymentStatus, \
+        Books.title, CONCAT(Authors.fName, ' ', Authors.lName) AS authorName \
+        FROM Orders \
+        LEFT JOIN Customers ON Orders.customerID = Customers.customerID \
+        INNER JOIN OrderItems ON Orders.orderID = OrderItems.orderID \
+        INNER JOIN Books on OrderItems.bookID = Books.bookID \
+        INNER JOIN Authors ON Books.authorID = Authors.authorID \
+        ORDER BY Orders.orderDate DESC, Orders.orderID DESC;`;
+
+        const [items] = await db.query(query1);
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('order_items', { people: people, homeworlds: homeworlds });
+        res.render('order_items', { items });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
@@ -127,16 +133,19 @@ app.get('/orders', async function (req, res) {
     try {
         // Create and execute our queries
         // In query1, we use a JOIN clause to display the names of the homeworlds
-        const query1 = `SELECT bsg_people.id, bsg_people.fname, bsg_people.lname, \
-            bsg_planets.name AS 'homeworld', bsg_people.age FROM bsg_people \
-            LEFT JOIN bsg_planets ON bsg_people.homeworld = bsg_planets.id;`;
-        const query2 = 'SELECT * FROM bsg_planets;';
-        const [people] = await db.query(query1);
-        const [homeworlds] = await db.query(query2);
+        const query1 = `SELECT Orders.orderID as id, \
+        CONCAT(Customers.fName, ' ', Customers.lName) AS customerName, \
+        Orders.orderDate, Orders.totalAmount, Orders.paymentStatus \
+        FROM Orders \
+        LEFT JOIN Customers ON Orders.customerID = Customers.customerID \
+        ORDER BY Orders.orderDate DESC, Orders.orderID DESC;
+        `;
+
+        const [orders] = await db.query(query1);
 
         // Render the bsg-people.hbs file, and also send the renderer
         //  an object that contains our bsg_people and bsg_homeworld information
-        res.render('orders', { people: people, homeworlds: homeworlds });
+        res.render('orders', { orders: orders });
     } catch (error) {
         console.error('Error executing queries:', error);
         // Send a generic error message to the browser
