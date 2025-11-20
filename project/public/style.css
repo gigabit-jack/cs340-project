@@ -8,13 +8,13 @@
 
 :root {
     --background-primary: #ffb109;
-    --background-secondary: #ff7903;
+    --background-secondary: #fff2e8;
     --background-muted: #ffda8d;
 
     --color-primary: #9548c8;
     --color-secondary: #b935a2;
     --color-muted: #cda9e5;
-    --color-link: #5b8dfe;
+    --color-link: #9db9f9;
 
     --border-primary: #735dee;
 }
@@ -76,7 +76,7 @@ tfoot {
 
 table tr:hover td,
 tbody tr:nth-child(even):hover td {
-    background-color: var(--background-secondary);
+    background-color: var(--color-link);
 }
 
 h1, h2 { 
@@ -101,4 +101,12 @@ a {
 
 .homepageDescription {
     margin-left: 32px;
+    white-space: pre;
+}
+
+footer {
+  padding: 2pt;
+  background-color: var(--background-muted);
+  margin-top: 10%;
+  color: #440154;
 }
