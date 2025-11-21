@@ -11,14 +11,22 @@ DELIMITER $$
 
 CREATE PROCEDURE sp_reset_bookstore()
 BEGIN
+
+    -- Disable foreign key checks for the duration
+    SET FOREIGN_KEY_CHECKS=0;
+
     /* ----------------------------------------------------------
        DROP TABLES (in reverse FK order so drops succeed)
+       This shouldn't be needed with foreign keys disabled, but
+       this will help ensure success.
        ---------------------------------------------------------- */
     DROP TABLE IF EXISTS OrderItems;
     DROP TABLE IF EXISTS Orders;
     DROP TABLE IF EXISTS Books;
     DROP TABLE IF EXISTS Customers;
     DROP TABLE IF EXISTS Authors;
+
+
 
     /* ----------------------------------------------------------
        RECREATE SCHEMA
@@ -195,6 +203,10 @@ BEGIN
             '3',
             '105.00'
         );
+
+    -- Re-enable foreign key checks now that we're done with the procedure
+    SET FOREIGN_KEY_CHECKS=1;
+
 END $$
 
 DELIMITER ;
