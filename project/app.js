@@ -106,7 +106,7 @@ app.get('/order_items', async function (req, res) {
         // In query1, we use a JOIN clause to display the names of the homeworlds
         const query1 = `SELECT Orders.orderID, \
         CONCAT(Customers.fName, ' ', Customers.lName) AS customerName, \
-        Orders.orderDate, Orders.totalAmount, Orders.paymentStatus, \
+        Orders.orderDate, OrderItems.quantity, OrderItems.subtotal, \
         Books.title, CONCAT(Authors.fName, ' ', Authors.lName) AS authorName \
         FROM Orders \
         LEFT JOIN Customers ON Orders.customerID = Customers.customerID \
