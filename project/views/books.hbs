@@ -1,0 +1,133 @@
+<h1>Books - Online Bookstore Admin</h1>
+
+<div class="booksDescription">
+    <p>This page displays all books currenly in the system, even if they have no orders.</p>
+</div>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each books.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each books}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.authorName}}</td>
+            <td>{{this.genre}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stockQuantity}}</td>
+            <td>{{this.publishYear}}</td>
+            <td>{{this.isbn}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_person_form'>
+                <input type='hidden' name='delete_person_id' value='{{this.id}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.fname}} {{this.lname}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Add a new Book</h2>
+<form class='cuForm' id='create_book_form'>
+    <label for='create_book_title'>Title: </label>
+    <input type='text' name='create_book_title' id='create_book_title' required />
+    <br>
+
+    <label for='create_book_author'>Author: </label>
+    <select name='create_book_author' id='create_book_author'>
+        <option value='NULL' disabled selected>Select an Author</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each authors}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+    <br>
+
+    <label for='create_book_genre'>Genre: </label>
+    <input type='text' name='create_book_genre' id='create_book_genre' />
+    <br>
+
+    <label for='create_book_price'>Price: </label>
+    <input type='text' name='create_book_price' id='create_book_price' />
+    <br>
+
+    <label for='create_book_quantity'>Current Quantity: </label>
+    <input type='text' name='create_book_quantity' id='create_book_quantity' />
+    <br>
+
+    <label for='create_book_year'>Published Year: </label>
+    <input type='text' name='create_book_year' id='create_book_year' />
+    <br>
+
+    <label for='create_book_isbn'>ISBN: </label>
+    <input type='text' name='create_book_isbn' id='create_book_isbn' />
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update an existing Book</h2>
+<form class='cuForm' id='update_book_form'>
+    <label for='update_book_title'>Title: </label>
+    <input type='text' name='update_book_title' id='update_book_title' required />
+    <br>
+    
+    <label for='update_book_author'>Author: </label>
+    <select name='update_book_author' id='update_book_author'>
+        <option value='NULL' disabled selected>Select an Author</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each authors}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+    <br>
+    
+    <label for='update_book_genre'>Genre: </label>
+    <input type='text' name='update_book_genre' id='update_book_genre' />
+    <br>
+    
+    <label for='update_book_price'>Price: </label>
+    <input type='text' name='update_book_price' id='update_book_price' />
+    <br>
+    
+    <label for='update_book_quantity'>Current Quantity: </label>
+    <input type='text' name='update_book_quantity' id='update_book_quantity' />
+    <br>
+    
+    <label for='update_book_year'>Published Year: </label>
+    <input type='text' name='update_book_year' id='update_book_year' />
+    <br>
+    
+    <label for='update_book_isbn'>ISBN: </label>
+    <input type='text' name='update_book_isbn' id='update_book_isbn' />
+
+    <input type='submit' />
+</form>
+
+<footer>
+&copy; 2025 Daniel Aguilar and Josh Goben
+</footer>

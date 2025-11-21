@@ -1,0 +1,98 @@
+<h1>Order Items - Online Bookstore Admin</h1>
+
+<div class="order_itemsDescription">
+    <p>This page will eventually be updated only to be shown when a user clicks on an order from the Orders page.</p>
+</div>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each items.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each items}}
+        <tr>
+            <td>{{this.orderID}}</td>
+            <td>{{this.customerName}}</td>
+            <td>{{this.orderDate}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{this.subtotal}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.authorName}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_person_form'>
+                <input type='hidden' name='delete_person_id' value='{{this.id}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.fname}} {{this.lname}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Add an item to an Order</h2>
+<form class='cuForm' id='create_orderItemItem_form'>
+        <label for='create_orderItem_orderID'>Select an Order</label>
+    <select name='create_orderItem_orderID' id='create_orderItem_orderID'>
+        <option value='NULL' disabled selected>Select an Order:</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each homeworlds}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_orderItem_customer'>Select a customer: </label>
+    <select name='create_orderItem_customer' id='create_orderItem_customer'>
+        <option value='NULL' disabled selected>Select a Customer</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each homeworlds}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+
+        <label for='create_orderItem_book'>Select a book: </label>
+    <select name='create_orderItem_book' id='create_orderItem_book'>
+        <option value='NULL' disabled selected>Select a book</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each homeworlds}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='create_orderItem_quantity'>Quantity: </label>
+    <input type='number' name='create_orderItem_quantity' id='create_orderItem_quantity' required />
+
+    <input type='submit' />
+</form>
+
+<div>
+    <p>
+        This table does not support updating existing order items. If you need to make a change, use the Delete button to delete an item, then recreate it if needed.
+    </p>
+</div>
+
+<footer>
+&copy; 2025 Daniel Aguilar and Josh Goben
+</footer>

@@ -1,0 +1,98 @@
+<h1>Customers - Online Bookstore Admin</h1>
+
+<div class="customersDescription">
+    <p>This page lists all Cusotmers in the system, regardless of whether or not they have placed an order.</p>
+</div>
+
+{{! READ table }}
+<table>
+    <thead>
+        {{! For the table header row, we print the DB attribute names }}
+        <tr>
+            {{#each customers.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{! For each row, print the id, fname, lname, homeworld and age }}
+        {{#each customers}}
+        <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.fName}}</td>
+            <td>{{this.lName}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phoneNumber}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+
+            {{! DELETE form }}
+            <form id='delete_person_form'>
+                <input type='hidden' name='delete_person_id' value='{{this.id}}' />
+                <input type='hidden' name='delete_person_name' value='{{this.fname}} {{this.lname}}' />
+                <td>
+                    <button type='submit'>
+                        Delete
+                    </button>
+                </td>
+            </form>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+{{! CREATE form }}
+<h2>Create a new Customer</h2>
+<form class='cuForm' id='create_customer_form'>
+    <label for='create_customer_fname'>First name: </label>
+    <input type='text' name='create_customer_fname' id='create_customer_fname' autocomplete="given-name" required />
+
+    <label for='create_customer_lname'>Last name: </label>
+    <input type='text' name='create_customer_lname' id='create_customer_lname' autocomplete="surname" required />
+
+    <label for='create_customer_email'>Email: </label>
+    <input type='email' name='create_customer_email' id='create_customer_email' />
+
+    <label for='create_customer_phone'>Phone number:</label>
+    <input type='tel' name='create_customer_phone' id='create_customer_phone' />
+
+    <label for='create_customer_city'>City:</label>
+    <input type='tel' name='create_customer_city' id='create_customer_city' />
+
+    <label for='create_customer_state'>State:</label>
+    <input type='tel' name='create_customer_state' id='create_customer_state' />
+
+    <input type='submit' />
+</form>
+
+{{! UPDATE form }}
+<h2>Update a Customer</h2>
+<form class='cuForm' id='update_person_form'>
+    <label for='update_customer_fname'>First name: </label>
+    <input type='text' name='update_customer_fname' id='update_customer_fname' autocomplete="given-name" required />
+    
+    <label for='update_customer_lname'>Last name: </label>
+    <input type='text' name='update_customer_lname' id='update_customer_lname' autocomplete="surname" required />
+    
+    <label for='update_customer_email'>Email: </label>
+    <input type='email' name='update_customer_email' id='update_customer_email' />
+    
+    <label for='update_customer_phone'>Phone number:</label>
+    <input type='tel' name='update_customer_phone' id='update_customer_phone' />
+    
+    <label for='update_customer_city'>City:</label>
+    <input type='tel' name='update_customer_city' id='update_customer_city' />
+    
+    <label for='update_customer_state'>State:</label>
+    <input type='tel' name='update_customer_state' id='update_customer_state' />
+
+    <input type='submit' />
+</form>
+
+<footer>
+&copy; 2025 Daniel Aguilar and Josh Goben
+</footer>
