@@ -1,6 +1,36 @@
--- Group 71 Step 4 DDL SQL
+-- Group 71 Step 4 PL SQL
 -- Online Bookstore Management System
 -- Daniel Aguilar and Josh Goben
+-- Combined Stored Procedures used by the web application 
+
+/* ----------------------------------------------------------------------
+sp_delete_orderItems
+
+Remove all Order Items
+---------------------------------------------------------------------- */
+
+
+-- Remove the old procedure if it exists
+DROP PROCEDURE IF EXISTS sp_delete_orderItems;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_delete_orderItems()
+BEGIN
+    DELETE FROM OrderItems;
+END //
+
+DELIMITER ;
+
+
+
+
+/* ----------------------------------------------------------------------
+sp_reset_bookstore
+
+Reset the database and repopulate initial data
+---------------------------------------------------------------------- */
+
 -- Defines sp_reset_bookstore() which drops/recreates all tables
 -- and reloads the sample data.
 
