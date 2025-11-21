@@ -1,11 +1,15 @@
-<h1>BSG People</h1>
+<h1>Orders - Online Bookstore Admin</h1>
+
+<div class="ordersDescription">
+    <p>This page displays all orders and the customers associated with them.</p>
+</div>
 
 {{! READ table }}
 <table>
     <thead>
         {{! For the table header row, we print the DB attribute names }}
         <tr>
-            {{#each people.[0]}}
+            {{#each orders.[0]}}
             <th>
                 {{@key}}
             </th>
@@ -16,13 +20,13 @@
 
     <tbody>
         {{! For each row, print the id, fname, lname, homeworld and age }}
-        {{#each people}}
+        {{#each orders}}
         <tr>
             <td>{{this.id}}</td>
-            <td>{{this.fname}}</td>
-            <td>{{this.lname}}</td>
-            <td>{{this.homeworld}}</td>
-            <td>{{this.age}}</td>
+            <td>{{this.customerName}}</td>
+            <td>{{this.orderDate}}</td>
+            <td>{{this.totalAmount}}</td>
+            <td>{{this.paymentStatus}}</td>
 
             {{! DELETE form }}
             <form id='delete_person_form'>
@@ -40,48 +44,14 @@
 </table>
 
 {{! CREATE form }}
-<h2>Create a Person</h2>
-<form class='cuForm' id='create_person_form'>
-    <label for='create_person_fname'>First Name: </label>
-    <input type='text' name='create_person_fname' id='create_person_fname' required />
-
-    <label for='create_person_lname'>Last Name: </label>
-    <input type='text' name='create_person_lname' id='create_person_lname' />
-
-    <label for='create_person_homeworld'>Homeworld: </label>
-    <select name='create_person_homeworld' id='create_person_homeworld'>
-        <option value='NULL' selected>Select a Planet</option>
-        <option value='NULL'>&lt; None &gt;</option>
-        {{#each homeworlds}}
-        <option value='{{this.id}}' required>{{this.name}}</option>
-        {{/each}}
-    </select>
-
-    <label for='create_person_age'>Age:</label>
-    <input type='number' name='create_person_age' id='create_person_age' min='0' />
-
-    <input type='submit' />
-</form>
-
-{{! UPDATE form }}
-<h2>Update a Person</h2>
-<form class='cuForm' id='update_person_form'>
-    <label for='update_person_id'>Person to Update: </label>
-    <select name='update_person_id' id='update_person_id' required>
-        <option value='' disabled selected>Select a Person</option>
-        {{#each people}}
-        <option value='{{this.id}}' required>
-            {{this.id}}
-            -
-            {{this.fname}}
-            {{this.lname}}
-        </option>
-        {{/each}}
-    </select>
-
-    <label for='update_person_homeworld'>Homeworld: </label>
-    <select name='update_person_homeworld' id='update_person_homeworld'>
-        <option value='NULL' disabled selected>Select a Planet</option>
+<h2>Record a new Order</h2>
+<div>
+    <p>This will create an empty order with no items, but you can add the items later.</p>
+</div>
+<form class='cuForm' id='create_order_form'>
+    <label for='create_order_customer'>Select a customer: </label>
+    <select name='create_order_customer' id='create_order_customer'>
+        <option value='NULL' disabled selected>Select a Customer</option>
         <option value='NULL'>&lt; None &gt;</option>
         {{#each homeworlds}}
         <option value='{{this.id}}' required>
@@ -90,8 +60,38 @@
         {{/each}}
     </select>
 
-    <label for='update_person_age'>Age: </label>
-    <input type='number' name='update_person_age' id='update_person_age' min='0' />
+    <label for='create_order_totalAmount'>Order total: </label>
+    <input type='number' name='create_order_totalAmount' id='create_order_totalAmount' required />
+
+    <label for='create_order_paymentStatus'>Current payment status: </label>
+    <input type='text' name='create_order_paymentStatus' id='create_order_paymentStatus' />
 
     <input type='submit' />
 </form>
+
+{{! UPDATE form }}
+<h2>Update an existing Order</h2>
+<form class='cuForm' id='update_order_form'>
+    <label for='update_order_customer'>Select a customer: </label>
+    <select name='update_order_customer' id='update_order_customer'>
+        <option value='NULL' disabled selected>Select a Customer</option>
+        <option value='NULL'>&lt; None &gt;</option>
+        {{#each homeworlds}}
+        <option value='{{this.id}}' required>
+            {{this.name}}
+        </option>
+        {{/each}}
+    </select>
+
+    <label for='update_order_totalAmount'>Order total: </label>
+    <input type='number' name='update_order_totalAmount' id='update_order_totalAmount' required />
+
+    <label for='update_order_paymentStatus'>Current payment status: </label>
+    <input type='text' name='update_order_paymentStatus' id='update_order_paymentStatus' />
+
+    <input type='submit' />
+</form>
+
+<footer>
+    &copy; 2025 Daniel Aguilar and Josh Goben
+</footer>
