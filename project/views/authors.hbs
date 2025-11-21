@@ -1,4 +1,8 @@
-<h1>BSG People</h1>
+<h1>Authors - Online Bookstore Admin</h1>
+
+<div class="authorsDescription">
+    <p>This page lists all authors in the system, even if we have no books in our system tied to that author.</p>
+</div>
 
 {{! READ table }}
 <table>
@@ -40,34 +44,47 @@
 </table>
 
 {{! CREATE form }}
-<h2>Create a Person</h2>
-<form class='cuForm' id='create_person_form'>
-    <label for='create_person_fname'>First Name: </label>
-    <input type='text' name='create_person_fname' id='create_person_fname' required />
+<h2>Add a new Author</h2>
+<form class='cuForm' id='create_author_form'>
+    <label for='create_author_fname'>First Name: </label>
+    <input type='text' name='create_author_fname' id='create_author_fname' required />
 
-    <label for='create_person_lname'>Last Name: </label>
-    <input type='text' name='create_person_lname' id='create_person_lname' />
+    <label for='create_author_lname'>Last Name: </label>
+    <input type='text' name='create_author_lname' id='create_author_lname' />
 
-    <label for='create_person_homeworld'>Homeworld: </label>
-    <select name='create_person_homeworld' id='create_person_homeworld'>
+    <label for='create_author_country'>Country: </label>
+    <input type='text' name='create_author_country' id='create_author_country' />
+
+    {{!-- <select name='create_author_homeworld' id='create_author_homeworld'>
         <option value='NULL' selected>Select a Planet</option>
         <option value='NULL'>&lt; None &gt;</option>
         {{#each homeworlds}}
         <option value='{{this.id}}' required>{{this.name}}</option>
         {{/each}}
-    </select>
+    </select> --}}
 
-    <label for='create_person_age'>Age:</label>
-    <input type='number' name='create_person_age' id='create_person_age' min='0' />
+    <label for='create_author_birthyear'>Birth year (AD 0 - Present):</label>
+    <input type='number' name='create_author_birthyear' id='create_author_birthyearage' max='2025' />
 
     <input type='submit' />
 </form>
 
 {{! UPDATE form }}
-<h2>Update a Person</h2>
-<form class='cuForm' id='update_person_form'>
-    <label for='update_person_id'>Person to Update: </label>
-    <select name='update_person_id' id='update_person_id' required>
+<h2>Update an Author</h2>
+<form class='cuForm' id='update_author_form'>
+    <label for='update_author_fname'>First Name: </label>
+    <input type='text' name='update_author_fname' id='update_author_fname' required />
+
+    <label for='update_author_lname'>Last Name: </label>
+    <input type='text' name='update_author_lname' id='update_author_lname' />
+
+    <label for='update_author_country'>Country: </label>
+    <input type='text' name='update_author_country' id='update_author_country' />
+
+    <label for='update_author_birthyear'>Birth year (AD 0 - Present):</label>
+    <input type='number' name='update_author_birthyear' id='update_author_birthyearage' max='2025' />
+    {{!-- <label for='update_author_id'>Person to Update: </label>
+    <select name='update_author_id' id='update_author_id' required>
         <option value='' disabled selected>Select a Person</option>
         {{#each people}}
         <option value='{{this.id}}' required>
@@ -79,8 +96,8 @@
         {{/each}}
     </select>
 
-    <label for='update_person_homeworld'>Homeworld: </label>
-    <select name='update_person_homeworld' id='update_person_homeworld'>
+    <label for='update_author_fname'>First Name: </label>
+    <select name='update_author_homeworld' id='update_author_homeworld'>
         <option value='NULL' disabled selected>Select a Planet</option>
         <option value='NULL'>&lt; None &gt;</option>
         {{#each homeworlds}}
@@ -88,10 +105,11 @@
             {{this.name}}
         </option>
         {{/each}}
-    </select>
-
-    <label for='update_person_age'>Age: </label>
-    <input type='number' name='update_person_age' id='update_person_age' min='0' />
+    </select> --}}
 
     <input type='submit' />
 </form>
+
+<footer>
+&copy; 2025 Daniel Aguilar and Josh Goben
+</footer>
