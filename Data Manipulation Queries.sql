@@ -236,6 +236,9 @@ DELETE FROM OrderItems WHERE orderID = @orderIDInput;
 
 DELETE FROM Orders WHERE orderID = @orderIDInput;
 
+-- Delete all Order Items
+DELETE FROM OrderItems;
+
 /* ----------------------------------------------------------------------
 REPORTING / DASHBOARD QUERIES
 ---------------------------------------------------------------------- */
